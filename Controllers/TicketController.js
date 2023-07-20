@@ -1,15 +1,15 @@
 const { json } = require("body-parser");
 
-let ticket = null;
+let ticket = [];
 
 const AddTicket = async (req, res) => {
   const { description } = req.body;
-  if (ticket) {
+  if (ticket.length > 0) {
     res.send(
       `Ticket with description "${
-        ticket.description
+        ticket[0].description
       }" already exists. Do you want to delete it? full ticket info:   ${JSON.stringify(
-        ticket
+        ticket[0]
       )} `
     );
   } else {
@@ -18,7 +18,7 @@ const AddTicket = async (req, res) => {
       description,
       attribute: 1,
     };
-    ticket = newTicket;
+    ticket.push(newTicket);
     res.send(
       `Ticket with description "${description}" has been added.  here is the new ticket:  ${JSON.stringify(
         ticket
@@ -28,8 +28,8 @@ const AddTicket = async (req, res) => {
 };
 
 const DeleteTicket = async (req, res) => {
-  if (ticket) {
-    ticket = null;
+  if (ticket.length > 0) {
+    ticket.pop();
     res.send(`The existing ticket has been deleted.`);
   } else {
     res.send(`No ticket exists.`);
@@ -37,18 +37,18 @@ const DeleteTicket = async (req, res) => {
 };
 
 const Up = async (req, res) => {
-  if (ticket) {
-    if (ticket.attribute < 10) {
-      ticket.attribute += 1;
+  if (ticket.length > 0) {
+    if (ticket[0].attribute < 10) {
+      ticket[0].attribute += 1;
       res.send(
         `Attribute of ticket "${JSON.stringify(
-          ticket
-        )}" has been increased to ${ticket.attribute}.`
+          ticket[0]
+        )}" has been increased to ${ticket[0].attribute}.`
       );
     } else {
       res.send(
         `Attribute of ticket  "${JSON.stringify(
-          ticket
+          ticket[0]
         )}" is already at max value.`
       );
     }
@@ -58,18 +58,18 @@ const Up = async (req, res) => {
 };
 
 const Down = async (req, res) => {
-  if (ticket) {
-    if (ticket.attribute > 1) {
-      ticket.attribute -= 1;
+  if (ticket.length > 0) {
+    if (ticket[0].attribute > 1) {
+      ticket[0].attribute -= 1;
       res.send(
         `Attribute of ticket :"${JSON.stringify(
-          ticket
-        )}" has been decreased to ${ticket.attribute}.`
+          ticket[0]
+        )}" has been decreased to ${ticket[0].attribute}.`
       );
     } else {
       res.send(
         `Attribute of ticket  "${JSON.stringify(
-          ticket
+          ticket[0]
         )}" is already at min value.`
       );
     }
