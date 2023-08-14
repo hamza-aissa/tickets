@@ -1,8 +1,8 @@
-const { json } = require("body-parser");
+// const { json } = require("body-parser");
 
 let ticket = [];
 
-const AddTicket = async (req, res) => {
+const AddTicket = (req, res) => {
   const { description } = req.body;
   if (ticket.length > 0) {
     res.send(
@@ -14,20 +14,21 @@ const AddTicket = async (req, res) => {
     );
   } else {
     const newTicket = {
-      id: new Date(),
+      id: new Date().toISOString(),
       description,
       attribute: 1,
     };
     ticket.push(newTicket);
-    res.send(
-      `Ticket with description "${description}" has been added.  here is the new ticket:  ${JSON.stringify(
-        ticket
-      )}`
-    );
+    // res.send(
+    //   `Ticket with description "${description}" has been added.  here is the new ticket:  ${JSON.stringify(
+    //     ticket
+    //   )}`
+    // );
+    res.send("ticket has been added");
   }
 };
 
-const DeleteTicket = async (req, res) => {
+const DeleteTicket = (req, res) => {
   if (ticket.length > 0) {
     ticket.pop();
     res.send(`The existing ticket has been deleted.`);
@@ -36,15 +37,16 @@ const DeleteTicket = async (req, res) => {
   }
 };
 
-const Up = async (req, res) => {
+const Up = (req, res) => {
   if (ticket.length > 0) {
     if (ticket[0].attribute < 10) {
       ticket[0].attribute += 1;
-      res.send(
-        `Attribute of ticket "${JSON.stringify(
-          ticket[0]
-        )}" has been increased to ${ticket[0].attribute}.`
-      );
+      // res.send(
+      //   `Attribute of ticket "${JSON.stringify(
+      //     ticket[0]
+      //   )}" has been increased to ${ticket[0].attribute}.`
+      // );
+      res.send("has been increased ");
     } else {
       res.send(
         `Attribute of ticket  "${JSON.stringify(
@@ -57,15 +59,16 @@ const Up = async (req, res) => {
   }
 };
 
-const Down = async (req, res) => {
+const Down = (req, res) => {
   if (ticket.length > 0) {
     if (ticket[0].attribute > 1) {
       ticket[0].attribute -= 1;
-      res.send(
-        `Attribute of ticket :"${JSON.stringify(
-          ticket[0]
-        )}" has been decreased to ${ticket[0].attribute}.`
-      );
+      // res.send(
+      //   `Attribute of ticket :"${JSON.stringify(
+      //     ticket[0]
+      //   )}" has been decreased to ${ticket[0].attribute}.`
+      // );
+      res.send("has been decreased ");
     } else {
       res.send(
         `Attribute of ticket  "${JSON.stringify(

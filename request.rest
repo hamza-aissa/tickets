@@ -1,0 +1,9 @@
+# DELETE  "localhost:3000/api/deleteTicket"
+# POST    "localhost:3000/api/upTicket"
+# POST   "localhost:3000/api/downTicket"
+POST    "localhost:3000/api/addTicket"
+Content-Type: application/json
+
+{
+    "description": "clean house",
+}
